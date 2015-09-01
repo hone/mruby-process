@@ -22,8 +22,11 @@
 #include <string.h>
 #include <time.h>
 
+#ifndef MRUBY_PROCESS_H
+#include "mruby/ext/process.h"
+#endif
+
 static mrb_value mrb_f_exit_common(mrb_state *mrb, int bang);
-static mrb_value mrb_procstat_new(mrb_state *mrb, mrb_int pid, mrb_int status);
 
 static struct {
   const char *name;
@@ -272,7 +275,7 @@ mrb_f_ppid(mrb_state *mrb, mrb_value klass)
   return mrb_fixnum_value((mrb_int)getppid());
 }
 
-static mrb_value
+mrb_value
 mrb_procstat_new(mrb_state *mrb, mrb_int pid, mrb_int status)
 {
   struct RClass *cls;
